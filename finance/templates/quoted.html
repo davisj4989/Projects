@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <form action="/quote" method="post">
+        <p>A share of {{ quote["symbol"] }} - {{ quote["name"] }} costs {{ quote["price"] | usd }}.</p>
+        <button class="btn btn-primary" type="submit">Buy</button>
+    </form>
+{% endblock %}

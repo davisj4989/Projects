@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Transactions
+{% endblock %}
+
+{% block main %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Name</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Time</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in history %}
+        <tr>
+            <td>{{ i.symbol.upper() }}</td>
+            <td>
+                {% if i.name == None: %}
+                    -
+                {% else: %}
+                    {{ i.name }}
+                {% endif %}
+            </td>
+            <td>
+                {% if i.qty == None: %}
+                    -
+                {% else: %}
+                    {{ i.qty }}
+                {% endif %}
+            </td>
+            <td>{{ i.date }}</td>
+            <td>
+                {% if i.price == None: %}
+                    -
+                {% else: %}
+                    {{ i.price }}
+                {% endif %}
+            </td>
+            <td>{{ i.total | usd }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

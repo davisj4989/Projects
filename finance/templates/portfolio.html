@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Name</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in stocks %}
+        <tr>
+            <td>{{ i.symbol.upper() }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.totalshares }}</td>
+            <td>{{ quotes[i.symbol]["price"] | usd }}</td>
+            <td>{{ (quotes[i.symbol]["price"] * i.totalshares) | usd }} </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>CASH</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ cash | usd }}</td>
+        </tr>
+        <tr>
+            <td><b>TOTAL</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>{{ total_cash | usd }}</b></td>
+        </tr>
+    </tbody>
+</table>
+    <form action="/" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="qty" placeholder="Amount" type="number">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Cash</button>
+    </form>
+{% endblock %}
